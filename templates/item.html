@@ -1,0 +1,32 @@
+{% extends "layout.html" %} 
+{% block body %} 
+<article>
+    <div class="row">
+        <span class="flex">{{ item.category.name }}</span>
+    </div>
+    <section>
+        <!-- form is for view consistency (read only) and will not post -->
+        <form>
+            <label for="name">Name: </label>
+            <div class="row">
+                <input id="name" type="text" value="{{ item.name }}" disabled />
+            </div>
+            <label for="description">Description: </label>
+            <div class="row">
+                <textarea id="description" rows="5" disabled>{{ item.description }}</textarea>
+            </div>
+            <div class="row">
+                {% if session.user_id and session.user_id == item.user_id %}
+                <a href="{{ url_for('editItem', itemId=item.id) }}">
+                    <button class="button" type="button">Edit</button>
+                </a>
+                <a href="{{ url_for('deleteItem', itemId=item.id) }}">
+                    <button class="button" type="button">Delete</button>
+                </a>
+                {% endif %}
+                <a href="/"><button class="button" type="button">Back</button></a>
+            </div>
+        </form>
+    </section>
+</article>
+{% endblock %}

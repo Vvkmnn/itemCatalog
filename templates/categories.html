@@ -1,0 +1,18 @@
+{% extends "layout.html" %} 
+{% block body %} 
+    {% for category in categories %}
+    <article>
+        <div class="row">
+            <span class="flex">{{ category.name }}</span>
+            {% if session.username %}
+            <a href="{{ url_for('newItem', catId=category.id) }}" class="button button-round" title="New Item">+</a>
+            {% endif %}
+        </div>
+        <section>
+            {% for item in category.items %}
+            <a href="{{ url_for('viewItem', itemId=item.id) }}" class="clickable">{{ item.name }}</a>
+            {% endfor %}
+        </section>
+    </article>
+    {% endfor %} 
+{% endblock %}
